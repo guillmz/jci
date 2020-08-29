@@ -15,8 +15,8 @@ class LineaController extends Controller
 
     public function index()
     {
-
-        return view('home');
+        $edit = false;
+        return view('home', compact('edit'));
     }
 
     /**
@@ -27,7 +27,7 @@ class LineaController extends Controller
     public function create()
     {
         $edit = false;
-        return view('pages.lines.new', compact('edit'));
+        return view('pages.lines.index', compact('edit'));
     }
 
     /**
@@ -70,10 +70,10 @@ class LineaController extends Controller
 
         foreach($res as $i){
             $res = $i;
-        break;
+            break;
         }
 
-        return view('pages.lines.new', compact('res','edit'));
+        return view('pages.lines.index', compact('res','edit'));
     }
 
     /**
@@ -85,7 +85,14 @@ class LineaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request;
+        $data = Linea::findOrFail($id);
+        $data->name = $request->name;
+        $data->description = $request->description;
+        $data->save();
+
+        // $this->create();
+        $edit = false;
+        return view('pages.lines.index', compact('edit'));
     }
 
     /**
@@ -96,10 +103,10 @@ class LineaController extends Controller
      */
     public function destroy($id)
     {
-
         $record = Linea::findOrFail($id);
         $record->delete();
 
-        return redirect()->back();
+        $edit = false;
+        return view('pages.lines.index', compact('edit'));
     }
 }

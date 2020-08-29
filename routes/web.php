@@ -23,10 +23,10 @@ Route::get('/home', 'LineaController@index')->name('home');
 
 
 Route::group(['prefix' => 'production'], function () {
-    Route::get('line/new', 'LineaController@create')->name('line.new');
+    Route::get('lines', 'LineaController@create')->name('line.new');
     Route::get('line/edit/{id}', 'LineaController@edit')->name('line.edit');
     Route::post('line/save', 'LineaController@store')->name('line.save');
+    Route::put('line/update/{id}', 'LineaController@update')->name('line.update');
     Route::get('line/delete/{id}', 'LineaController@destroy')->name('line.destroy');
-    Route::get('line/update/{id}', 'LineaController@update')->name('line.update');
 });
 
